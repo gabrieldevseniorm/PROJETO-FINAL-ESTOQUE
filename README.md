@@ -53,10 +53,10 @@ O sistema de Controle de Estoque e Vendas tem como objetivo facilitar o gerencia
 | ID | Requisito | Nível |
 |---|---|---|
 | RF01 | O sistema deve permitir cadastrar, consultar e editar produtos, incluindo nome, código, preço e quantidade em estoque. | Essencial |
-| RF02 |O sistema deve permitir registrar vendas, selecionando produtos, quantidades e formas de pagamento. | |
-| RF03 |O sistema deve atualizar automaticamente o estoque após a entrada ou saída de mercadorias. | |
-| RF04 |O sistema deve permitir consultar os produtos disponíveis e identificar aqueles com estoque baixo.| |
-| RF05 |O sistema deve gerar relatórios com faturamento, quantidade de vendas e produtos mais vendidos.| |
+| RF02 |O sistema deve permitir registrar vendas, selecionando produtos, quantidades e formas de pagamento. | Essencial |
+| RF03 |O sistema deve atualizar automaticamente o estoque após a entrada ou saída de mercadorias. | Essencial |
+| RF04 |O sistema deve permitir consultar os produtos disponíveis e identificar aqueles com estoque baixo.| Essencial |
+| RF05 |O sistema deve gerar relatórios com faturamento, quantidade de vendas e produtos mais vendidos.| Importante |
 
 ### 2.2 Requisitos não funcionais (COMO o sistema deve ser)
 
@@ -99,24 +99,25 @@ Como vendedor, quero registrar a venda de um produto, para controlar as saídas 
 classDiagram
     direction LR
     class Categoria {
-        Long id
-        String nome
-        String descricao
+        Long id 1
+        String nome Móveis para a casa
+        String descricao cadeiras para uso residencial e comercial
     }
     class Produto {
-        Long id
-        String codigo
-        String nome
-        String unidade
-        BigDecimal precoCusto
-        Integer estoqueMinimo
-        Integer saldo
+        Long id 1
+        String codigo CAD001
+        String nome Cadeira de Cordas Artesanal
+        String unidade 1
+        BigDecimal precoCusto R$ 50,00
+        BigDecimal precoVenda R$ 400,00
+        Integer estoqueMinimo 15
+        Integer saldo 20
     }
     class Movimentacao {
         Long id
         String tipo
         Integer quantidade
-        LocalDateTime dataHora
+        valorUnitario
         String observacao
     }
     Categoria "1" --> "*" Produto : classifica
