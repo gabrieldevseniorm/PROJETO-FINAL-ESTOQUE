@@ -152,11 +152,14 @@ classDiagram
         Long id 1
         String nome Móveis para a casa
         String descricao cadeiras para uso residencial e comercial
+    
     +getNome() : String
     +setNome(String) : void
     +getDescricao() : String
     +setDescricao(String) : void    
+    
     }
+
     class Produto {
         Long id 1
         String codigo CAD001
@@ -166,6 +169,7 @@ classDiagram
         BigDecimal precoVenda R$ 400,00
         Integer estoqueMinimo 15
         Integer saldo 20
+    
     +getNome() : String
     +setNome(String) : void
     +getSaldo() : Integer
@@ -174,13 +178,16 @@ classDiagram
     +retirarEstoque(Integer) : void
     +verificarEstoqueMinimo() : boolean
     +calcularLucroUnitario() : BigDecimal
+    
     }
+    
     class Movimentacao {
         Long id
         String tipo
         Integer quantidade
         valorUnitario
         String observacao
+    
     +getId() : Long
     +getTipo() : String
     +setTipo(String) : void
@@ -191,7 +198,9 @@ classDiagram
     +getObservacao() : String
     +setObservacao(String) : void
     +calcularValorTotal() : BigDecimal
+    
     }
+    
     Categoria "1" --> "N" Produto : classifica
     Produto "1" --> "N" Movimentacao : registra
 ```
