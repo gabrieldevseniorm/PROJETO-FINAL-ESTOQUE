@@ -157,9 +157,7 @@ classDiagram
     +setNome(String) : void
     +getDescricao() : String
     +setDescricao(String) : void    
-    
     }
-
     class Produto {
         Long id 1
         String codigo CAD001
@@ -178,9 +176,7 @@ classDiagram
     +retirarEstoque(Integer) : void
     +verificarEstoqueMinimo() : boolean
     +calcularLucroUnitario() : BigDecimal
-    
     }
-    
     class Movimentacao {
         Long id
         String tipo
@@ -198,9 +194,7 @@ classDiagram
     +getObservacao() : String
     +setObservacao(String) : void
     +calcularValorTotal() : BigDecimal
-    
     }
-    
     Categoria "1" --> "N" Produto : classifica
     Produto "1" --> "N" Movimentacao : registra
 ```
