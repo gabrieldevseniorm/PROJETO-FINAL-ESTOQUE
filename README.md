@@ -82,14 +82,64 @@ O sistema de Controle de Estoque e Vendas tem como objetivo facilitar o gerencia
 
 ---
 
-## 3. Histórias de usuário
+# 3. Histórias de usuário
 
-Como vendedor, quero registrar a venda de um produto, para controlar as saídas do estoque e acompanhar as vendas realizadas.
-- Só produtos com quantidade disponível em estoque podem ser vendidos.
-- A quantidade vendida não pode ser maior que a quantidade disponível.
-- O valor total da venda deve ser calculado automaticamente com base nos produtos, quantidades e descontos aplicados.
-- Após confirmar a venda, o estoque deve ser atualizado automaticamente.
-- Toda venda deve registrar a data, os produtos vendidos, a forma de pagamento e o vendedor responsável.
+Formato: **Como** *[papel]*, **quero** *[ação]*, **para** *[benefício]*.
+
+### HU01 — Cadastro de produtos
+
+Como responsável pelo estoque, quero cadastrar produtos, para manter o controle das cadeiras disponíveis para venda.
+
+- Critério de aceitação: o sistema deve permitir cadastrar produtos com nome, código, categoria, preço de custo, preço de venda e quantidade em estoque.
+- Critério de aceitação: o sistema não deve permitir o cadastro de produtos com códigos duplicados.
+
+### HU02 — Registro de vendas
+
+Como vendedor, quero registrar a venda de cadeiras, para controlar as saídas do estoque e acompanhar as vendas realizadas.
+
+- Critério de aceitação: somente produtos com quantidade disponível em estoque podem ser vendidos.
+- Critério de aceitação: a quantidade vendida não pode ser maior que a quantidade disponível.
+- Critério de aceitação: o sistema deve calcular automaticamente o valor total da venda.
+- Critério de aceitação: após confirmar a venda, o sistema deve atualizar automaticamente o estoque.
+
+### HU03 — Controle de entrada e saída
+
+Como responsável pelo estoque, quero registrar as entradas e saídas de cadeiras, para manter as quantidades disponíveis sempre atualizadas.
+
+- Critério de aceitação: o sistema deve registrar o tipo de movimentação, a quantidade, o valor unitário e a data.
+- Critério de aceitação: o sistema não deve permitir saídas em quantidades superiores ao estoque disponível.
+- Critério de aceitação: toda movimentação deve ficar registrada no histórico do produto.
+
+### HU04 — Consulta de estoque
+
+Como responsável pelo estoque, quero consultar as cadeiras disponíveis, para identificar os produtos que precisam de reposição.
+
+- Critério de aceitação: o sistema deve exibir o nome, o código e a quantidade disponível de cada produto.
+- Critério de aceitação: o sistema deve alertar quando um produto atingir ou ficar abaixo da quantidade mínima definida.
+
+### HU05 — Relatórios de vendas
+
+Como proprietário da loja, quero consultar relatórios de vendas, para acompanhar o faturamento e identificar as cadeiras mais vendidas.
+
+- Critério de aceitação: o sistema deve apresentar o total de vendas por período.
+- Critério de aceitação: o sistema deve exibir os produtos mais vendidos e suas respectivas quantidades.
+- Critério de aceitação: o sistema deve permitir consultar o histórico de vendas por data.
+
+### HU06 — Controle de preços
+
+Como administrador, quero cadastrar e atualizar os preços de custo e de venda das cadeiras, para manter os valores dos produtos corretos.
+
+- Critério de aceitação: o sistema deve permitir alterar os preços dos produtos cadastrados.
+- Critério de aceitação: o sistema não deve aceitar preços negativos.
+- Critério de aceitação: o sistema deve utilizar o preço de venda vigente no momento do registro da venda.
+
+### HU07 — Histórico de movimentações
+
+Como responsável pelo estoque, quero consultar o histórico de movimentações das cadeiras, para acompanhar todas as entradas e saídas realizadas.
+
+- Critério de aceitação: o sistema deve registrar a data, o tipo de movimentação e a quantidade movimentada.
+- Critério de aceitação: o sistema deve permitir identificar se a movimentação foi uma entrada, uma venda ou outra saída.
+- Critério de aceitação: o sistema deve permitir consultar as movimentações de um produto específico.
 
 ---
 
@@ -102,6 +152,10 @@ classDiagram
         Long id 1
         String nome Móveis para a casa
         String descricao cadeiras para uso residencial e comercial
+    +getNome() : String
+    +setNome(String) : void
+    +getDescricao() : String
+    +setDescricao(String) : void    
     }
     class Produto {
         Long id 1
@@ -112,6 +166,14 @@ classDiagram
         BigDecimal precoVenda R$ 400,00
         Integer estoqueMinimo 15
         Integer saldo 20
+    +getNome() : String
+    +setNome(String) : void
+    +getSaldo() : Integer
+    +setSaldo(Integer) : void
+    +adicionarEstoque(Integer) : void
+    +retirarEstoque(Integer) : void
+    +verificarEstoqueMinimo() : boolean
+    +calcularLucroUnitario() : BigDecimal
     }
     class Movimentacao {
         Long id
@@ -119,9 +181,19 @@ classDiagram
         Integer quantidade
         valorUnitario
         String observacao
+    +getId() : Long
+    +getTipo() : String
+    +setTipo(String) : void
+    +getQuantidade() : Integer
+    +setQuantidade(Integer) : void
+    +getValorUnitario() : BigDecimal
+    +setValorUnitario(BigDecimal) : void
+    +getObservacao() : String
+    +setObservacao(String) : void
+    +calcularValorTotal() : BigDecimal
     }
-    Categoria "1" --> "*" Produto : classifica
-    Produto "1" --> "*" Movimentacao : registra
+    Categoria "1" --> "N" Produto : classifica
+    Produto "1" --> "N" Movimentacao : registra
 ```
 
 ---

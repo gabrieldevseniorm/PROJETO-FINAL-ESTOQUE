@@ -1,4 +1,3 @@
-```java
 package br.senai.sistema.model;
 
 import java.math.BigDecimal;
@@ -96,4 +95,3 @@ public class Movimentacao {
         this.observacao = observacao;
     }
 }
-```
