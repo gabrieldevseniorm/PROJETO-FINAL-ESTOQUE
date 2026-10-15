@@ -6,12 +6,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 /**
- * Entidade Categoria: representa uma categoria de produtos.
+ * Entidade Categoria: representa a categoria que o sistema guarda.
  *
  * Cada objeto desta classe vira UMA LINHA da tabela "categorias" no banco.
- * Cada atributo vira UMA COLUNA dessa tabela.
+ * As anotações de validação (@NotBlank, @Size...) definem as regras dos campos do formulário.
  */
 @Entity
 @Table(name = "categorias")
@@ -22,24 +24,27 @@ public class Categoria {
     private Long id;
 
     /** Nome da categoria. */
-    @Column(nullable = false, length = 100)
+    @NotBlank(message = "Campo obrigatório.")
+    @Size(max = 60, message = "Use no máximo 60 caracteres.")
+    @Column(nullable = false, length = 60)
     private String nome;
 
-    /** Descrição da categoria. */
+    /** Detalhes da categoria (opcional). */
+    @Size(max = 255, message = "Use no máximo 255 caracteres.")
     @Column(length = 255)
     private String descricao;
 
-    /** Construtor vazio: obrigatório para o JPA. */
+    /** Construtor vazio: obrigatório para o JPA e para o formulário criarem objetos. */
     public Categoria() {
     }
 
-    /** Construtor com os dados principais. */
+    /** Construtor com os dados principais: facilita criar objetos no código. */
     public Categoria(String nome, String descricao) {
         this.nome = nome;
         this.descricao = descricao;
     }
 
-    // Getters e setters
+    // ---- Getters e setters ----
 
     public Long getId() {
         return id;
