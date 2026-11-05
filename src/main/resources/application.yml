@@ -8,7 +8,10 @@
 app:
   # Nome do seu sistema: Sistema de Controle de Estoque e Vendas — Mestre Artesão.
   # TROQUE para o nome do seu projeto (ex.: "Estoque Fácil", "OS Técnica").
-  nome: "Mestre Artesão Ltda."
+  nome: "Sistema de Controle de Estoque e Vendas — Mestre Artesão"
+  # Nome da empresa: aparece no rodapé de todas as páginas.
+  empresa: "Mestre Artesão Ltda."
+
   seguranca:
     # Segurança (login): ligada a partir do Encontro 7.
     ativa: true
