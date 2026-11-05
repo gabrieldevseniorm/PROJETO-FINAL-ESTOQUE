@@ -1,4 +1,4 @@
-# Mestre artesão vendas
+# Sistema de Controle de Estoque e Vendas — Mestre Artesão
 
 > Substitua o título acima pelo nome do seu sistema e preencha cada seção deste documento.
 > Este README é o **documento de visão** do projeto (entrega **AVA 1**) e, ao longo do curso,
@@ -231,11 +231,12 @@ Java 21 · Spring Boot 4 · Spring MVC · Thymeleaf · Bootstrap 5 · Spring Dat
 
 ## 7. Uso de inteligência artificial
 <!-- Registre aqui, de forma resumida, quando e como você usou ferramentas de IA de forma relevante no projeto. -->
+Foi utilizada a inteligência artificial do Chat GPT como ferramenta de apoio na elaboração dos requisitos funcionais e não funcionais, regras de negócio, histórias de usuário e organização do modelo de dados. As sugestões foram analisadas, adaptadas ao projeto e revisadas.
 
 ## 8. Histórico de versões
 | Versão | Data | Descrição |
 |---|---|---|
-| 0.1.0 | | Projeto inicial criado a partir do repositório modelo |
+| 1.0.0 | | Projeto inicial criado a partir do repositório modelo |
 
 ## Usuários de teste
 
