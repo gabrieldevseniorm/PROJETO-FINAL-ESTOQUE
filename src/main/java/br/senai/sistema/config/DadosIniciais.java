@@ -67,12 +67,16 @@ public class DadosIniciais implements CommandLineRunner {
         }
 
         if (produtoRepository.count() == 0) {
-            Produto produto1 = new Produto("PRD-001", "Parafuso sextavado M8", "UN", new BigDecimal("0.45"), 100, 350);
-            Produto produto2 = new Produto("PRD-002", "Luva de proteção", "PAR", new BigDecimal("12.90"), 10, 8);
-            Produto produto3 = new Produto("PRD-003", "Fita isolante 20m", "UN", new BigDecimal("7.50"), 20, 42);
+            Produto produto1 = new Produto("PRD-001", "Cadeiras", "UN", new BigDecimal("0.45"), 100, 350);
+            Produto produto2 = new Produto("PRD-002", "Poltronas", "PAR", new BigDecimal("12.90"), 10, 8);
+            Produto produto3 = new Produto("PRD-003", "Banquetas", "UN", new BigDecimal("7.50"), 20, 42);
+            Produto produto4 = new Produto("PRD-004", "Sofas", "UN", new BigDecimal("25.00"), 5, 15);
+            Produto produto5 = new Produto("PRD-005", "Pufes", "UN", new BigDecimal("30.00"), 5, 10);
             produto1.setLocalizacao("Prateleira A1");
             produto2.setLocalizacao("Armário 2");
             produto3.setLocalizacao("Prateleira B3");
+            produto4.setLocalizacao("Prateleira C1");
+            produto5.setLocalizacao("Armário 3");
             // Cada produto recebe uma categoria (relacionamento N:1)
             List<Categoria> categorias = categoriaRepository.findAll(Sort.by("id"));
             if (!categorias.isEmpty()) {
@@ -83,6 +87,8 @@ public class DadosIniciais implements CommandLineRunner {
             produtoRepository.save(produto1);
             produtoRepository.save(produto2);
             produtoRepository.save(produto3);
+            produtoRepository.save(produto4);
+            produtoRepository.save(produto5);
         }
 
         // Operação principal: cada registro aponta para registros que já existem (relacionamento).
