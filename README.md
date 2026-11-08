@@ -220,7 +220,8 @@ Abra o projeto na IDE e execute a classe `SistemaApplication`. Acesse `http://lo
 | Usuário | Senha | Perfil |
 |---|---|---|
 | admin | admin123 | Administrador |
-| operador | operador123 | Operador |
+| almoxarife | almoxarife123 | Almoxarifado |
+| operador | operador123 | Funcionário |
 
 *(o login passa a ser exigido a partir do Encontro 7)*
 

@@ -53,7 +53,9 @@ public class DadosIniciais implements CommandLineRunner {
         if (usuarioRepository.count() == 0) {
             usuarioRepository.save(new Usuario("Administrador", "admin",
                     passwordEncoder.encode("admin123"), Perfil.ADMIN));
-            usuarioRepository.save(new Usuario("Operador", "operador",
+            usuarioRepository.save(new Usuario("Almoxarifado", "almoxarife",
+                    passwordEncoder.encode("almoxarife123"), Perfil.ALMOXARIFE));
+            usuarioRepository.save(new Usuario("Funcionário", "operador",
                     passwordEncoder.encode("operador123"), Perfil.OPERADOR));
         }
                 

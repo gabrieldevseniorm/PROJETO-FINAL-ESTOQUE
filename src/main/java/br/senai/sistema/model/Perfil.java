@@ -9,6 +9,7 @@ package br.senai.sistema.model;
  */
 public enum Perfil {
     ADMIN,
+    ALMOXARIFE,
     OPERADOR,
     CLIENTE,
 }
