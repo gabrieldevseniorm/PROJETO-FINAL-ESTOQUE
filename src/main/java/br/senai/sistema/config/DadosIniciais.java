@@ -65,32 +65,95 @@ public class DadosIniciais implements CommandLineRunner {
         }
 
         if (categoriaRepository.count() == 0) {
-            Categoria categoria1 = new Categoria("Ferragens", "Parafusos, porcas e fixadores");
-            Categoria categoria2 = new Categoria("EPI", "Equipamentos de proteção individual");
-            Categoria categoria3 = new Categoria("Elétrica", "Fios, fitas e materiais elétricos");
+            
+            Categoria categoria1 = new Categoria(
+             "Cadeiras",
+        "Cadeiras para ambientes internos e externos"
+            );
+
+            Categoria categoria2 = new Categoria(
+             "Poltronas",
+        "Poltronas para áreas externas e espaços de lazer"
+            );
+
+            Categoria categoria3 = new Categoria(
+             "Sofás",
+        "Sofás e módulos para ambientes externos"
+            );
+
+            Categoria categoria4 = new Categoria(
+             "Mesas",
+        "Mesas de centro, laterais e mesas de apoio"
+            );
+
+            Categoria categoria5 = new Categoria(
+             "Espreguiçadeiras",
+        "Móveis para piscinas e áreas de descanso"
+            );
+
+            Categoria categoria6 = new Categoria(
+             "Banquetas e bancos",
+        "Bancos e banquetas para áreas externas"
+            );
+
+            Categoria categoria7 = new Categoria(
+             "Pufes e acessórios",
+        "Complementos e acessórios para mobiliário"
+            );
+
             categoriaRepository.save(categoria1);
             categoriaRepository.save(categoria2);
             categoriaRepository.save(categoria3);
+            categoriaRepository.save(categoria4);
+            categoriaRepository.save(categoria5);
+            categoriaRepository.save(categoria6);
+            categoriaRepository.save(categoria7);
         }
 
         if (produtoRepository.count() == 0) {
-            Produto produto1 = new Produto("PRD-001", "Cadeiras", "UN", new BigDecimal("0.45"), 100, 350);
-            Produto produto2 = new Produto("PRD-002", "Poltronas", "PAR", new BigDecimal("12.90"), 10, 8);
-            Produto produto3 = new Produto("PRD-003", "Banquetas", "UN", new BigDecimal("7.50"), 20, 42);
-            Produto produto4 = new Produto("PRD-004", "Sofas", "UN", new BigDecimal("25.00"), 5, 15);
-            Produto produto5 = new Produto("PRD-005", "Pufes", "UN", new BigDecimal("30.00"), 5, 10);
-            produto1.setLocalizacao("Prateleira A1");
-            produto2.setLocalizacao("Armário 2");
-            produto3.setLocalizacao("Prateleira B3");
-            produto4.setLocalizacao("Prateleira C1");
-            produto5.setLocalizacao("Armário 3");
-            // Cada produto recebe uma categoria (relacionamento N:1)
-            List<Categoria> categorias = categoriaRepository.findAll(Sort.by("id"));
-            if (!categorias.isEmpty()) {
+            
+            Produto produto1 = new Produto(
+        "MA-001", "Cadeira Wave", "UN",
+                new BigDecimal("850.00"), 10, 25
+            );
+
+            Produto produto2 = new Produto(
+        "MA-002", "Espreguiçadeira Wave", "UN",
+                new BigDecimal("1450.00"), 5, 12
+            );
+
+            Produto produto3 = new Produto(
+        "MA-003", "Cadeira Aura", "UN",
+                new BigDecimal("950.00"), 10, 20
+            );
+
+            Produto produto4 = new Produto(
+        "MA-004", "Mesa Aura", "UN",
+                new BigDecimal("1200.00"), 5, 10
+            );
+
+            Produto produto5 = new Produto(
+        "MA-005", "Mesa Lateral Bossa", "UN",
+                new BigDecimal("650.00"), 5, 15
+            );
+
+            produto1.setLocalizacao("Estoque de móveis");
+            produto2.setLocalizacao("Área de produtos finalizados");
+            produto3.setLocalizacao("Estoque de móveis");
+            produto4.setLocalizacao("Área de produtos finalizados");
+            produto5.setLocalizacao("Estoque de móveis");
+
+            List<Categoria> categorias =
+                categoriaRepository.findAll(Sort.by("id"));
+
+            if (categorias.size() >= 5) {
                 produto1.setCategoria(categorias.get(0));
-                produto2.setCategoria(categorias.get(1 % categorias.size()));
-                produto3.setCategoria(categorias.get(2 % categorias.size()));
+                produto2.setCategoria(categorias.get(4));
+                produto3.setCategoria(categorias.get(0));
+                produto4.setCategoria(categorias.get(3));
+                produto5.setCategoria(categorias.get(3));
             }
+
             produtoRepository.save(produto1);
             produtoRepository.save(produto2);
             produtoRepository.save(produto3);
@@ -105,12 +168,13 @@ public class DadosIniciais implements CommandLineRunner {
             if (!produtos.isEmpty()) {
                 Movimentacao movimentacao1 = new Movimentacao(TipoMovimentacao.ENTRADA, 200, LocalDate.of(2026, 10, 14),
                         produtos.get(0));
-                movimentacao1.setObservacao("Compra do fornecedor");
+                movimentacao1.setObservacao("Entrada de móveis finalizados no estoque");
                 Movimentacao movimentacao2 = new Movimentacao(TipoMovimentacao.SAIDA, 2, LocalDate.of(2026, 10, 15),
                         produtos.get(1 % produtos.size()));
-                movimentacao2.setObservacao("Retirada pela equipe de manutenção");
+                movimentacao2.setObservacao("Saída de móveis para comercialização");
                 Movimentacao movimentacao3 = new Movimentacao(TipoMovimentacao.ENTRADA, 10, LocalDate.of(2026, 10, 16),
                         produtos.get(2 % produtos.size()));
+                movimentacao3.setObservacao("Entrada de produtos após processo de fabricação");
                 movimentacaoRepository.save(movimentacao1);
                 movimentacaoRepository.save(movimentacao2);
                 movimentacaoRepository.save(movimentacao3);
