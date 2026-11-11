@@ -291,7 +291,7 @@ Foi utilizada a inteligência artificial do Chat GPT como ferramenta de apoio na
 - Registro de entradas e saídas, com atualização automática do saldo.
 - Alerta de produtos abaixo do estoque mínimo.
 - Painel com os indicadores do estoque.
-- Login com dois perfis: o Administrador pode tudo; o Operador consulta produtos e categorias e registra movimentações.
+- Login com dois perfis: o Administrador pode tudo; o Operador consulta produtos e categorias e registra movimentações. 
 
 ### Telas
 
