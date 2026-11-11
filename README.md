@@ -1,8 +1,5 @@
 # Sistema de Controle de Estoque e Vendas — Mestre Artesão
 
-> Substitua o título acima pelo nome do seu sistema e preencha cada seção deste documento.
-> Este README é o **documento de visão** do projeto (entrega **AVA 1**) e, ao longo do curso,
-> também será o manual técnico de como executar o sistema.
 
 | | |
 |---|---|
@@ -146,19 +143,20 @@ Como responsável pelo estoque, quero consultar o histórico de movimentações 
 
 ## 4. Modelo de dados
 
-```mermaid
 classDiagram
     direction LR
+
     class Categoria {
         Long id 1
         String nome Móveis para a casa
         String descricao cadeiras para uso residencial e comercial
-    
-    +getNome() : String
-    +setNome(String) : void
-    +getDescricao() : String
-    +setDescricao(String) : void    
+
+        +getNome() : String
+        +setNome(String) : void
+        +getDescricao() : String
+        +setDescricao(String) : void
     }
+
     class Produto {
         Long id 1
         String codigo CAD001
@@ -168,54 +166,84 @@ classDiagram
         BigDecimal precoVenda R$ 400,00
         Integer estoqueMinimo 15
         Integer saldo 20
-    
-    +getNome() : String
-    +setNome(String) : void
-    +getSaldo() : Integer
-    +setSaldo(Integer) : void
-    +adicionarEstoque(Integer) : void
-    +retirarEstoque(Integer) : void
-    +verificarEstoqueMinimo() : boolean
-    +calcularLucroUnitario() : BigDecimal
+
+        +getNome() : String
+        +setNome(String) : void
+        +getSaldo() : Integer
+        +setSaldo(Integer) : void
+        +adicionarEstoque(Integer) : void
+        +retirarEstoque(Integer) : void
+        +verificarEstoqueMinimo() : boolean
+        +calcularLucroUnitario() : BigDecimal
     }
+
     class Movimentacao {
         Long id
         String tipo
         Integer quantidade
-        valorUnitario
+        BigDecimal valorUnitario
         String observacao
-    
-    +getId() : Long
-    +getTipo() : String
-    +setTipo(String) : void
-    +getQuantidade() : Integer
-    +setQuantidade(Integer) : void
-    +getValorUnitario() : BigDecimal
-    +setValorUnitario(BigDecimal) : void
-    +getObservacao() : String
-    +setObservacao(String) : void
-    +calcularValorTotal() : BigDecimal
+
+        +getId() : Long
+        +getTipo() : String
+        +setTipo(String) : void
+        +getQuantidade() : Integer
+        +setQuantidade(Integer) : void
+        +getValorUnitario() : BigDecimal
+        +setValorUnitario(BigDecimal) : void
+        +getObservacao() : String
+        +setObservacao(String) : void
+        +calcularValorTotal() : BigDecimal
     }
+
+    class Fornecedor {
+        Long id
+        String nome
+        String cnpj
+        String telefone
+        String email
+        String endereco
+
+        +getId() : Long
+        +getNome() : String
+        +setNome(String) : void
+        +getCnpj() : String
+        +setCnpj(String) : void
+        +getTelefone() : String
+        +setTelefone(String) : void
+        +getEmail() : String
+        +setEmail(String) : void
+        +getEndereco() : String
+        +setEndereco(String) : void
+    }
+
     Categoria "1" --> "N" Produto : classifica
+    Fornecedor "1" --> "N" Produto : fornece
     Produto "1" --> "N" Movimentacao : registra
-```
+    
 
 ---
 
 ## 5. Como executar
 
 ### No GitHub Codespaces (recomendado)
-1. No repositório, clique em **Code → Codespaces → Create codespace on main** (ou abra o Codespace existente).
-2. Aguarde a preparação do ambiente.
-3. No terminal, execute:
+1. No repositório, clique em **Code → Codespaces** e abra o Codespace existente (ou **Create codespace on main**).
+2. No terminal, execute:
    ```bash
    mvn spring-boot:run
    ```
-4. Quando aparecer o aviso da porta **8080**, clique em **Abrir no navegador**.
+3. Aguarde a mensagem `Started SistemaApplication` no terminal.
+4. Abra a aba **Portas** (ao lado do Terminal) e, na linha da porta **8080**, clique no ícone de globo (**Abrir no navegador**).
+5. Entre com um dos usuários da seção **Usuários de teste**.
 
 ### No computador (ferramentas instaladas)
-Requisitos: JDK 21 e uma IDE (IntelliJ IDEA ou VS Code com o *Extension Pack for Java*).
-Abra o projeto na IDE e execute a classe `SistemaApplication`. Acesse `http://localhost:8080`.
+Requisitos: JDK 21 e Maven (ou uma IDE com suporte a Java, como IntelliJ IDEA ou VS Code com o *Extension Pack for Java*).
+Na pasta do projeto, execute `mvn spring-boot:run` e acesse `http://localhost:8080`.
+
+### Banco de dados de desenvolvimento
+- O banco H2 fica na pasta `dados/` (não vai para o GitHub). Na primeira execução, o sistema cria as tabelas e os dados de exemplo.
+- Para recomeçar com os dados de exemplo: pare o sistema e apague a pasta (`rm -rf dados`).
+- Console do banco: endereço `/h2-console` (só para o perfil ADMIN).
 
 ### Acesso
 | Usuário | Senha | Perfil |
@@ -231,9 +259,13 @@ Abra o projeto na IDE e execute a classe `SistemaApplication`. Acesse `http://lo
 ## 6. Tecnologias
 Java 21 · Spring Boot 4 · Spring MVC · Thymeleaf · Bootstrap 5 · Spring Data JPA · H2 (desenvolvimento) · MySQL (produção) · Spring Security · Git/GitHub
 
+---
+
 ## 7. Uso de inteligência artificial
 <!-- Registre aqui, de forma resumida, quando e como você usou ferramentas de IA de forma relevante no projeto. -->
 Foi utilizada a inteligência artificial do Chat GPT como ferramenta de apoio na elaboração dos requisitos funcionais e não funcionais, regras de negócio, histórias de usuário e organização do modelo de dados. As sugestões foram analisadas, adaptadas ao projeto e revisadas.
+
+---
 
 ## 8. Histórico de versões
 | Versão | Data | Descrição |
@@ -249,142 +281,65 @@ Foi utilizada a inteligência artificial do Chat GPT como ferramenta de apoio na
 
 ---
 
-## 9. Controle de chamados de manutenção — v1.1
-
-O sistema permite registrar e acompanhar chamados de manutenção relacionados aos produtos da empresa.
+## 9. Funcionalidades e telas
 
 ### Funcionalidades
-- Registrar novos chamados de manutenção.
-- Informar a descrição do problema.
-- Identificar o produto relacionado.
-- Acompanhar o status do chamado.
-- Registrar a solução aplicada.
-- Consultar o histórico de chamados resolvidos.
+- Cadastro de produtos e categorias.
+- Registro de entradas e saídas, com atualização automática do saldo.
+- Alerta de produtos abaixo do estoque mínimo.
+- Painel com os indicadores do estoque.
+- Login com dois perfis: o Administrador pode tudo; o Operador consulta produtos e categorias e registra movimentações.
 
-### Status dos chamados
-- Aberto: chamado registrado e aguardando atendimento.
-- Em andamento: manutenção sendo realizada.
-- Resolvido: problema solucionado e registrado no sistema.
+### Telas
 
----
+**Painel com os indicadores do estoque**
 
-## 10. Implantação com Docker e MySQL — v1.2
+![Painel com os indicadores do estoque](docs/painel.png)
 
-O sistema será implantado utilizando contêineres Docker, com o banco de dados MySQL.
+**Movimentações de entrada e saída**
 
-### Requisitos
-- Docker instalado.
-- Docker Compose instalado.
-- Git instalado.
+![Movimentações de entrada e saída](docs/movimentacoes.png)
 
-### Como executar
+**Regra de negócio: saída maior que o saldo**
 
-1. Clone o repositório do projeto.
-2. Entre na pasta principal do sistema.
-3. Execute o comando:
+![Regra de negócio: saída maior que o saldo](docs/regra.png)
 
-```bash
-docker compose up -d --build
-```
+**Tela de login**
 
-4. Aguarde a inicialização dos contêineres.
-5. Acesse o sistema pelo navegador:
-
-```text
-http://localhost:8080
-```
-
-### Banco de dados
-
-- SGBD: MySQL.
-- Banco de dados: mestre_artesao.
-- Porta padrão: 3306.
-
-### Encerrar os contêineres
-
-```bash
-docker compose down
-```
+![Tela de login](docs/login.png)
 
 ---
 
-## 11. Manual do usuário
+## 10. Checklist do nível essencial
 
-### Acesso ao sistema
-O usuário deve acessar o sistema pelo navegador e realizar o login com suas credenciais.
-
-### Cadastro de produtos
-1. Acessar a opção Produtos.
-2. Selecionar Novo Produto.
-3. Preencher os dados do produto.
-4. Salvar o cadastro.
-
-### Movimentação de estoque
-1. Acessar a opção Movimentações.
-2. Selecionar o produto.
-3. Informar o tipo de movimentação.
-4. Informar a quantidade.
-5. Confirmar o registro.
-
-### Consulta de estoque
-Acessar a opção Produtos para visualizar os produtos cadastrados e suas quantidades disponíveis.
-
-### Chamados de manutenção
-1. Acessar a opção Manutenção.
-2. Registrar o problema encontrado.
-3. Selecionar o produto relacionado.
-4. Salvar o chamado.
-5. Atualizar o status após a realização do serviço.
-
-## 12. Plano de implantação
-
-1. Preparar o ambiente com Docker e Docker Compose.
-2. Configurar as variáveis de ambiente do sistema.
-3. Inicializar o banco de dados MySQL.
-4. Executar os contêineres da aplicação.
-5. Verificar a conexão com o banco de dados.
-6. Realizar testes de funcionamento.
-7. Liberar o acesso aos usuários.
-
-### Verificações após implantação
-- Aplicação acessível pelo navegador.
-- Banco de dados conectado.
-- Cadastro e consulta de produtos funcionando.
-- Movimentações atualizando o estoque.
-- Chamados de manutenção sendo registrados e resolvidos.
+- [x] O sistema sobe sem erros seguindo a seção 5 (Como executar)
+- [x] Cadastro completo de produtos (cadastrar, listar, editar e excluir), com validação
+- [x] Cadastro completo de categorias, com validação
+- [x] Movimentações ligadas aos produtos (e produtos ligados às categorias), com lista de escolha no formulário
+- [x] Regra de negócio 1: A saída não pode ser maior que o saldo do produto.
+- [x] Regra de negócio 2: Alerta quando o saldo fica abaixo do estoque mínimo.
+- [x] Login com 2 perfis (admin e operador), senhas criptografadas e acesso conforme o perfil
+- [x] Painel com os indicadores na página inicial
+- [x] Repositório no GitHub com commits frequentes
+- [x] README com a visão do projeto, como executar, usuários de teste, funcionalidades e telas
+- [x] Quadro Kanban atualizado
 
 ---
 
-## 13. Documento de testes — v2.0
+## 11. Personalizações
 
-### Testes funcionais
+Sistema adaptado para a empresa **Nome da empresa** (ramo de atuação).
 
-| ID | Cenário | Resultado esperado |
-|---|---|---|
-| T01 | Cadastrar produto válido | Produto cadastrado com sucesso |
-| T02 | Cadastrar produto com código duplicado | Sistema impede o cadastro |
-| T03 | Registrar entrada de estoque | Quantidade aumenta |
-| T04 | Registrar saída de estoque | Quantidade diminui |
-| T05 | Registrar saída maior que o estoque | Sistema impede a operação |
-| T06 | Registrar chamado de manutenção | Chamado salvo no banco |
-| T07 | Resolver chamado de manutenção | Status atualizado para resolvido |
-
-### Testes automatizados das regras de negócio
-
-Os testes automatizados serão desenvolvidos utilizando JUnit 5 e deverão verificar:
-
-- Impedimento de saídas superiores ao estoque disponível.
-- Atualização correta do saldo após entradas e saídas.
-- Impedimento de quantidades e valores inválidos.
-- Registro e atualização dos chamados de manutenção.
-
-Os testes deverão ser executados antes da entrega da versão 2.0.
-
-Comando para executar os testes:
-
-```bash
-mvn test
-```
+- Identidade visual: logotipo, cores e nome da empresa.
+- Novo atributo: localização do produto.
+- Nova validação: código no formato AAA-000.
+- Unidade escolhida em uma lista de opções.
+- Valor em estoque calculado na lista de produtos.
+- Produtos podem ser inativados.
+- Nova entidade: Fornecedor, ligada ao produto.
+- Nova regra de negócio: entradas com mais de 1.000 unidades exigem observação.
+- Perfis: Administrador e Almoxarife.
+- Comprovante de movimentação para impressão.
+- Página Sobre.
 
 ---
-
