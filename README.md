@@ -143,6 +143,8 @@ Como responsável pelo estoque, quero consultar o histórico de movimentações 
 
 ## 4. Modelo de dados
 
+
+```mermaid
 classDiagram
     direction LR
 
@@ -220,8 +222,8 @@ classDiagram
     Categoria "1" --> "N" Produto : classifica
     Fornecedor "1" --> "N" Produto : fornece
     Produto "1" --> "N" Movimentacao : registra
-    
 
+```
 ---
 
 ## 5. Como executar
