@@ -141,6 +141,7 @@ Como responsável pelo estoque, quero consultar o histórico de movimentações 
 - Critério de aceitação: o sistema deve permitir identificar se a movimentação foi uma entrada, uma venda ou outra saída.
 - Critério de aceitação: o sistema deve permitir consultar as movimentações de um produto específico.
 
+
 ---
 
 ## 4. Modelo de dados
@@ -245,3 +246,145 @@ Foi utilizada a inteligência artificial do Chat GPT como ferramenta de apoio na
 |---|---|---|---|
 | admin | admin123 | Administrador | Tudo |
 | operador | operador123 | Operador | Consulta produtos e categorias e registra movimentações |
+
+---
+
+## 9. Controle de chamados de manutenção — v1.1
+
+O sistema permite registrar e acompanhar chamados de manutenção relacionados aos produtos da empresa.
+
+### Funcionalidades
+- Registrar novos chamados de manutenção.
+- Informar a descrição do problema.
+- Identificar o produto relacionado.
+- Acompanhar o status do chamado.
+- Registrar a solução aplicada.
+- Consultar o histórico de chamados resolvidos.
+
+### Status dos chamados
+- Aberto: chamado registrado e aguardando atendimento.
+- Em andamento: manutenção sendo realizada.
+- Resolvido: problema solucionado e registrado no sistema.
+
+---
+
+## 10. Implantação com Docker e MySQL — v1.2
+
+O sistema será implantado utilizando contêineres Docker, com o banco de dados MySQL.
+
+### Requisitos
+- Docker instalado.
+- Docker Compose instalado.
+- Git instalado.
+
+### Como executar
+
+1. Clone o repositório do projeto.
+2. Entre na pasta principal do sistema.
+3. Execute o comando:
+
+```bash
+docker compose up -d --build
+```
+
+4. Aguarde a inicialização dos contêineres.
+5. Acesse o sistema pelo navegador:
+
+```text
+http://localhost:8080
+```
+
+### Banco de dados
+
+- SGBD: MySQL.
+- Banco de dados: mestre_artesao.
+- Porta padrão: 3306.
+
+### Encerrar os contêineres
+
+```bash
+docker compose down
+```
+
+---
+
+## 11. Manual do usuário
+
+### Acesso ao sistema
+O usuário deve acessar o sistema pelo navegador e realizar o login com suas credenciais.
+
+### Cadastro de produtos
+1. Acessar a opção Produtos.
+2. Selecionar Novo Produto.
+3. Preencher os dados do produto.
+4. Salvar o cadastro.
+
+### Movimentação de estoque
+1. Acessar a opção Movimentações.
+2. Selecionar o produto.
+3. Informar o tipo de movimentação.
+4. Informar a quantidade.
+5. Confirmar o registro.
+
+### Consulta de estoque
+Acessar a opção Produtos para visualizar os produtos cadastrados e suas quantidades disponíveis.
+
+### Chamados de manutenção
+1. Acessar a opção Manutenção.
+2. Registrar o problema encontrado.
+3. Selecionar o produto relacionado.
+4. Salvar o chamado.
+5. Atualizar o status após a realização do serviço.
+
+## 12. Plano de implantação
+
+1. Preparar o ambiente com Docker e Docker Compose.
+2. Configurar as variáveis de ambiente do sistema.
+3. Inicializar o banco de dados MySQL.
+4. Executar os contêineres da aplicação.
+5. Verificar a conexão com o banco de dados.
+6. Realizar testes de funcionamento.
+7. Liberar o acesso aos usuários.
+
+### Verificações após implantação
+- Aplicação acessível pelo navegador.
+- Banco de dados conectado.
+- Cadastro e consulta de produtos funcionando.
+- Movimentações atualizando o estoque.
+- Chamados de manutenção sendo registrados e resolvidos.
+
+---
+
+## 13. Documento de testes — v2.0
+
+### Testes funcionais
+
+| ID | Cenário | Resultado esperado |
+|---|---|---|
+| T01 | Cadastrar produto válido | Produto cadastrado com sucesso |
+| T02 | Cadastrar produto com código duplicado | Sistema impede o cadastro |
+| T03 | Registrar entrada de estoque | Quantidade aumenta |
+| T04 | Registrar saída de estoque | Quantidade diminui |
+| T05 | Registrar saída maior que o estoque | Sistema impede a operação |
+| T06 | Registrar chamado de manutenção | Chamado salvo no banco |
+| T07 | Resolver chamado de manutenção | Status atualizado para resolvido |
+
+### Testes automatizados das regras de negócio
+
+Os testes automatizados serão desenvolvidos utilizando JUnit 5 e deverão verificar:
+
+- Impedimento de saídas superiores ao estoque disponível.
+- Atualização correta do saldo após entradas e saídas.
+- Impedimento de quantidades e valores inválidos.
+- Registro e atualização dos chamados de manutenção.
+
+Os testes deverão ser executados antes da entrega da versão 2.0.
+
+Comando para executar os testes:
+
+```bash
+mvn test
+```
+
+---
+
