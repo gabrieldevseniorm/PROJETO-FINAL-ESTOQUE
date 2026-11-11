@@ -272,7 +272,8 @@ Foi utilizada a inteligência artificial do Chat GPT como ferramenta de apoio na
 ## 8. Histórico de versões
 | Versão | Data | Descrição |
 |---|---|---|
-| 1.0.0 | | Projeto inicial criado a partir do repositório modelo |
+| 0.1.0 | Controle de Estoque | Projeto inicial criado a partir do repositório modelo |
+| 1.0.0 | 11/11/2026 | Primeira versão estável |
 
 ## Usuários de teste
 
